@@ -1,17 +1,15 @@
 
-#define MQTT_BROKER                         "raspberrypi"
-#define MQTT_PORT                           1883
-
 typedef enum {
-    CONNECTING,
-    CONNECTED,
-    DISCONNECTED,
-    FAILURE,
-} wifi_connection_status_t;
+    MQTT_CONNECTED,
+    MQTT_DISCONNECTED,
+    MQTT_SUBSCRIBED,
+    MQTT_UNSUBSCRIBED,
+    MQTT_PUBLISHED,
+    MQTT_RECEIVED_DATA,
+    MQTT_ERROR,
+} mqtt_connection_status_t;
 
-typedef void (*wifi_callback_t)(wifi_connection_status_t status);
+typedef void (*mqtt_callback_t)(mqtt_connection_status_t status);
 
-void wifi_init_sta(wifi_callback_t);
-void mqtt_init();
-
-void init_mqtt(const char * mqtt_broker);
+void mqtt_init(const char * mqtt_broker, mqtt_callback_t);
+void mqtt_subscribe(const char * topic);
